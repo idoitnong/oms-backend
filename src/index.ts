@@ -1,15 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+import express from "express";
+import ProductsRoutes from "./routes/productRoutes";
 
-const prisma = new PrismaClient();
+const app = express();
+const port = 3000;
 
-// create a new user
-await prisma.user.create({
-  data: {
-    name: "John Dough",
-    email: `john-${Math.random()}@example.com`,
-  },
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
+app.use("/products", ProductsRoutes);
 
-// count the number of users
-const count = await prisma.user.count();
-console.log(`There are ${count} users in the database.`);
+app.listen(port, () => {
+  console.log(`Listening on port ${port}...`);
+});
