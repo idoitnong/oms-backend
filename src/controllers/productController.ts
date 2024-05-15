@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "./client";
 import * as z from "zod";
 
 const productScheme = z.object({
@@ -7,7 +7,6 @@ const productScheme = z.object({
 });
 
 export const createProduct = async (req: Request, res: Response) => {
-  const prisma = new PrismaClient();
   const { name, description } = req.body;
 
   try {
