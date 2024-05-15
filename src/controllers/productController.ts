@@ -6,6 +6,26 @@ const productScheme = z.object({
   name: z.string().min(1, "Product name is required.").max(20, "Product names can be entered up to 20 characters."),
 });
 
+export const getProducts = async (req: Request, res: Response) => {
+  const { name } = req.query;
+
+  try {
+    const result = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: name as string,
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return res.json({ data: result });
+  } catch (err) {
+    return res.status(500).json({ message: (err as Error).message });
+  }
+};
+
 export const createProduct = async (req: Request, res: Response) => {
   const { name, description } = req.body;
 
