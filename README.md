@@ -20,3 +20,13 @@
    ```env
    DATABASE_URL=mysql://johndoe:randompassword@localhost:3306/mydb
    ```
+
+# 프로젝트 실행
+
+개발모드로 실행하려면 환경 변수 설정 후 아래 명령을 입력
+
+```bash
+bun install
+bunx prisma generate
+bun dev
+```
